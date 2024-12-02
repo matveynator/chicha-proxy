@@ -45,12 +45,12 @@
 
 1. **Для HTTP-прокси**:
    ```bash
-   chicha-zendesk --http-port=8080 --target-url=https://ovmsupport.zendesk.com
+   chicha-zendesk --http-port=8080 --target-url=https://testsupport.zendesk.com
    ```
 
 2. **Для HTTPS-прокси с автоматическим сертификатом**:
    ```bash
-   chicha-zendesk --domain=example.com --target-url=https://ovmsupport.zendesk.com
+   chicha-zendesk --domain=example.com --target-url=https://testsupport.zendesk.com
    ```
 
 ---
