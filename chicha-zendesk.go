@@ -25,8 +25,8 @@ func proxyHandler(targetURL string) http.HandlerFunc {
 			body, err = io.ReadAll(r.Body)
 			if err != nil {
 				// В случае ошибки отправляем клиенту ответ с кодом 500 (Internal Server Error)
-				http.Error(w, "Не удалось прочитать тело запроса", http.StatusInternalServerError)
-				log.Printf("Ошибка чтения тела запроса: %v", err)
+				http.Error(w, "Failed to read request body", http.StatusInternalServerError)
+				log.Printf("Error reading request body: %v", err)
 				return
 			}
 		}
@@ -42,8 +42,8 @@ func proxyHandler(targetURL string) http.HandlerFunc {
 			// Создаем новый HTTP-запрос, копируя метод, заголовки и тело из оригинального запроса
 			req, err := http.NewRequest(r.Method, currentURL, bytes.NewReader(body))
 			if err != nil {
-				http.Error(w, "Не удалось создать запрос", http.StatusInternalServerError)
-				log.Printf("Ошибка создания запроса: %v", err)
+				http.Error(w, "Failed to create request", http.StatusInternalServerError)
+				log.Printf("Error creating request: %v", err)
 				return
 			}
 
@@ -60,8 +60,8 @@ func proxyHandler(targetURL string) http.HandlerFunc {
 			// Выполняем пересылку запроса
 			resp, err := client.Do(req)
 			if err != nil {
-				http.Error(w, "Ошибка пересылки запроса", http.StatusBadGateway)
-				log.Printf("Ошибка пересылки запроса: %v", err)
+				http.Error(w, "Error forwarding request", http.StatusBadGateway)
+				log.Printf("Error forwarding request: %v", err)
 				return
 			}
 			defer resp.Body.Close()
@@ -70,12 +70,12 @@ func proxyHandler(targetURL string) http.HandlerFunc {
 			if resp.StatusCode >= 300 && resp.StatusCode < 400 {
 				location, err := resp.Location()
 				if err != nil {
-					http.Error(w, "Не удалось обработать редирект", http.StatusInternalServerError)
-					log.Printf("Ошибка обработки редиректа: %v", err)
+					http.Error(w, "Failed to handle redirect", http.StatusInternalServerError)
+					log.Printf("Error handling redirect: %v", err)
 					return
 				}
 				currentURL = location.String()
-				log.Printf("Перенаправление на: %s", currentURL)
+				log.Printf("Redirecting to: %s", currentURL)
 				continue
 			}
 
@@ -92,12 +92,12 @@ func proxyHandler(targetURL string) http.HandlerFunc {
 			// Копируем тело ответа и отправляем клиенту
 			responseBody, err := io.ReadAll(resp.Body)
 			if err != nil {
-				log.Printf("Ошибка чтения тела ответа: %v", err)
+				log.Printf("Error reading response body: %v", err)
 				return
 			}
 			_, err = w.Write(responseBody)
 			if err != nil {
-				log.Printf("Ошибка записи тела ответа: %v", err)
+				log.Printf("Error writing response body: %v", err)
 			}
 			return
 		}
@@ -106,24 +106,27 @@ func proxyHandler(targetURL string) http.HandlerFunc {
 
 func main() {
 	// Определяем флаги командной строки
-	port := flag.String("port", "8080", "Порт для запуска прокси-сервера")
-	targetURL := flag.String("target-url", "https://ovmsupport.zendesk.com", "Целевой URL для пересылки запросов")
-	domain := flag.String("domain", "", "Домен для автоматического получения сертификата Let's Encrypt")
-	showVersion := flag.Bool("version", false, "Показать версию программы")
+	port := flag.String("port", "8080", "Port to run the proxy server on")
+	targetURL := flag.String("target-url", "https://zendesk.com", "Target URL to forward requests to")
+	domain := flag.String("domain", "", "Domain for automatic Let's Encrypt certificate")
+	showVersion := flag.Bool("version", false, "Show program version")
 
 	// Разбираем параметры командной строки
 	flag.Parse()
 
 	// Если указан флаг --version, выводим версию программы и выходим
 	if *showVersion {
-		fmt.Printf("Версия программы: %s\n", version)
+		fmt.Printf("Program version: %s\n", version)
 		os.Exit(0)
 	}
 
 	// Проверяем, что целевой URL указан
 	if *targetURL == "" {
-		log.Fatal("Целевой URL (--target-url) не указан")
+		log.Fatal("Target URL (--target-url) is not specified")
 	}
+
+	// Создаём обработчик прокси
+	handler := proxyHandler(*targetURL)
 
 	// Если указан домен, включаем поддержку HTTPS с Let's Encrypt
 	if *domain != "" {
@@ -134,19 +137,21 @@ func main() {
 			HostPolicy: autocert.HostWhitelist(*domain),
 		}
 
-		// Запускаем HTTPS-сервер
+		// Настраиваем сервер с поддержкой TLS
 		server := &http.Server{
-			Addr:      ":443",
+			Addr:      ":" + *port, // Используем заданный порт (по умолчанию 8080 или указанный пользователем)
 			TLSConfig: m.TLSConfig(),
-			Handler:   proxyHandler(*targetURL),
+			Handler:   handler,
 		}
 
-		log.Printf("Запуск HTTPS-прокси на домене %s и порту 443", *domain)
+		// Запускаем HTTPS-сервер
+		log.Printf("Starting HTTPS proxy on domain %s and port %s", *domain, *port)
 		log.Fatal(server.ListenAndServeTLS("", ""))
 	} else {
 		// Запускаем HTTP-сервер, если домен не указан
-		http.HandleFunc("/", proxyHandler(*targetURL))
-		log.Printf("Запуск HTTP-прокси на порту %s", *port)
+		http.HandleFunc("/", handler)
+		log.Printf("Starting HTTP proxy on port %s", *port)
 		log.Fatal(http.ListenAndServe(":"+*port, nil))
 	}
 }
+
