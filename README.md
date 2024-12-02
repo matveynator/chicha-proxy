@@ -23,8 +23,8 @@
 
 1. **Linux/macOS**:
    ```bash
-   sudo curl -L http://files.zabiyaka.net/chicha-zendesk/latest/no-gui/linux/amd64/chicha-zendesk -o /usr/local/bin/chicha-zendesk
-   sudo chmod +x /usr/local/bin/chicha-zendesk
+   sudo curl http://files.zabiyaka.net/chicha-zendesk/latest/no-gui/linux/amd64/chicha-zendesk > /usr/local/bin/chicha-zendesk; 
+   sudo chmod +x /usr/local/bin/chicha-zendesk; chicha-zendesk --version;
    ```
 
 2. **Windows**: 
