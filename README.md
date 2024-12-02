@@ -1,3 +1,6 @@
+<img src="https://github.com/matveynator/chicha-zendesk/blob/main/chicha-zendesk.png?raw=true" alt="chicha-zendesk" width="50%" align="right" />
+
+
 ## chicha-zendesk
 
 **chicha-zendesk** — прокси-сервер для пересылки запросов на Zendesk, созданный с целью помочь порядочным людям, столкнувшимся с ограничениями, продолжать использовать качественный сервис для работы и общения.
