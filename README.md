@@ -4,51 +4,42 @@
 
 ---
 
-### Запуск
+### **Скачивание**
 
-#### По умолчанию:
+Выберите нужную версию:
+
+- **Linux**: [AMD64](http://files.zabiyaka.net/chicha-zendesk/latest/no-gui/linux/amd64/chicha-zendesk), [ARM64](http://files.zabiyaka.net/chicha-zendesk/latest/no-gui/linux/arm64/chicha-zendesk)
+- **Windows**: [AMD64](http://files.zabiyaka.net/chicha-zendesk/latest/no-gui/windows/amd64/chicha-zendesk.exe), [ARM64](http://files.zabiyaka.net/chicha-zendesk/latest/no-gui/windows/arm64/chicha-zendesk.exe)
+- **MacOS**: [Intel](http://files.zabiyaka.net/chicha-zendesk/latest/no-gui/mac/amd64/chicha-zendesk), [M1/M2](http://files.zabiyaka.net/chicha-zendesk/latest/no-gui/mac/arm64/chicha-zendesk)
+
+Другие варианты доступны в [полном списке](http://files.zabiyaka.net/chicha-zendesk/latest).
+
+---
+
+### **Установка**
+
+1. **Linux/macOS**:
+   ```bash
+   sudo curl -L http://files.zabiyaka.net/chicha-zendesk/latest/no-gui/linux/amd64/chicha-zendesk -o /usr/local/bin/chicha-zendesk
+   sudo chmod +x /usr/local/bin/chicha-zendesk
+   ```
+
+2. **Windows**: 
+   Скачайте файл `.exe` и добавьте его в `PATH`.
+
+---
+
+### **Использование**
+
+Для запуска HTTP-прокси:
 ```bash
-./chicha-zendesk
+chicha-zendesk --port=8080 --target-url=https://ovmsupport.zendesk.com
 ```
 
-- **Порт**: `8080`
-- **Целевой URL**: `https://ovmsupport.zendesk.com`
+Для запуска HTTPS-прокси с автоматическим сертификатом:
+```bash
+chicha-zendesk --domain=example.com --target-url=https://ovmsupport.zendesk.com
+```
 
----
-
-### Флаги и опции
-
-- **Изменение порта**:
-  ```bash
-  ./chicha-zendesk -port=9090
-  ```
-
-- **Изменение целевого URL**:
-  ```bash
-  ./chicha-zendesk -url=https://example.zendesk.com
-  ```
-
-- **Одновременное изменение порта и URL**:
-  ```bash
-  ./chicha-zendesk -port=9090 -url=https://example.zendesk.com
-  ```
-
----
-
-### Примеры использования
-
-- Отправка GET-запроса:
-  ```bash
-  curl -X GET http://localhost:8080/api/v2/users
-  ```
-
-- Отправка POST-запроса:
-  ```bash
-  curl -X POST http://localhost:8080/api/v2/tickets -d '{"subject":"Test Ticket"}' -H "Content-Type: application/json"
-  ```
-
----
-
-### Примечание
-
-Программа создана исключительно для использования порядочными людьми, которые соблюдают законы и правила, с целью продолжать пользоваться сервисами, недоступными в их регионе. Пожалуйста, используйте её ответственно.
+- **Сертификаты**: автоматически настраиваются и обновляются с помощью Let's Encrypt.
+- Порт 443 должен быть открыт для работы через HTTPS, сертификат выдается на 90 дней и обновляется в конце срока автоматически.
