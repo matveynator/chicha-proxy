@@ -1,6 +1,6 @@
-module chicha-zendesk
+module chicha-proxy
 
-go 1.23.2
+go 1.23
 
 require golang.org/x/crypto v0.29.0
 
