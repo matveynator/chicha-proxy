@@ -14,7 +14,7 @@
 - **Windows**: [AMD64](http://files.zabiyaka.net/chicha-zendesk/latest/no-gui/windows/amd64/chicha-zendesk.exe), [ARM64](http://files.zabiyaka.net/chicha-zendesk/latest/no-gui/windows/arm64/chicha-zendesk.exe)
 - **MacOS**: [Intel](http://files.zabiyaka.net/chicha-zendesk/latest/no-gui/mac/amd64/chicha-zendesk), [M1/M2](http://files.zabiyaka.net/chicha-zendesk/latest/no-gui/mac/arm64/chicha-zendesk)
 
-Другие варианты доступны в [полном списке](http://files.zabiyaka.net/chicha-zendesk/latest).
+Другие варианты доступны в [полном списке](http://files.zabiyaka.net/chicha-zendesk/latest/no-gui).
 
 ---
 
