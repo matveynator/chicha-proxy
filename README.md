@@ -46,15 +46,9 @@ Other platforms (including FreeBSD, Solaris, and more) are available in the [ful
    ```
 
 2. **HTTPS Proxy with Automatic SSL**:
-   Proxy HTTPS traffic for `example.com`:
+   Proxy HTTPS traffic for `example.com` HTTP on `80` and HTTPS on `443`:
    ```bash
-   chicha-http-proxy --domain=example.com --target-url=https://testsupport.zendesk.com
-   ```
-
-3. **HTTP and HTTPS Together**:
-   Handle HTTP on `8080` and HTTPS on `8443`:
-   ```bash
-   chicha-http-proxy --http-port=8080 --https-port=8443 --domain=example.com --target-url=https://testsupport.zendesk.com
+   sudo chicha-http-proxy --domain=example.com --target-url=https://testsupport.zendesk.com
    ```
 
 ---
