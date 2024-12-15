@@ -1,12 +1,12 @@
 <img src="https://github.com/matveynator/chicha-http-proxy/blob/main/chicha-http-proxy.png?raw=true" alt="chicha-http-proxy" width="100%" align="right" />
 
-# **Chicha HTTP Proxy is a compact and beginner-friendly tool for creating mirrors of websites or services.**
+# **chicha-http-proxy is a compact and beginner-friendly tool for creating mirrors of websites or services.**
 
 Chicha HTTP Proxy is a lightweight **Layer 3 (L3)** HTTP proxy. It forwards traffic to a target URL and supports both HTTP and HTTPS with automatic SSL certificates. Built with Go, it’s fast, easy to set up, and perfect for creating mirrors of websites or services.
 
 ---
 
-### **Why Chicha HTTP Proxy?**
+### **Why chicha-http-proxy?**
 - **Simple**: Minimal setup—just specify the target URL.
 - **Fast**: Written in Go for high performance.
 - **Automatic SSL**: Get and renew HTTPS certificates with Let's Encrypt.
