@@ -17,11 +17,11 @@ Chicha HTTP Proxy is a lightweight **Layer 3 (L3)** HTTP proxy. It forwards traf
 ### **Download**
 
 Choose the version for your platform:  
-- **Linux**: [AMD64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/amd64/chicha-http-proxy), [ARM64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/arm64/chicha-http-proxy)  
-- **Windows**: [AMD64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/windows/amd64/chicha-http-proxy.exe), [ARM64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/windows/arm64/chicha-http-proxy.exe)  
-- **macOS**: [Intel](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/mac/amd64/chicha-http-proxy), [M1/M2](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/mac/arm64/chicha-http-proxy)
+- **Linux**: [AMD64](https://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/amd64/chicha-http-proxy), [ARM64](https://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/arm64/chicha-http-proxy)  
+- **Windows**: [AMD64](https://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/windows/amd64/chicha-http-proxy.exe), [ARM64](https://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/windows/arm64/chicha-http-proxy.exe)  
+- **macOS**: [Intel](https://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/mac/amd64/chicha-http-proxy), [M1/M2](https://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/mac/arm64/chicha-http-proxy)
 
-Other platforms (including FreeBSD, Solaris, and more) are available in the [full list here](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui).
+Other platforms (including FreeBSD, Solaris, and more) are available in the [full list here](https://files.zabiyaka.net/chicha-http-proxy/latest/no-gui).
 
 ---
 
@@ -29,7 +29,7 @@ Other platforms (including FreeBSD, Solaris, and more) are available in the [ful
 
 1. **Linux/macOS**:
    ```bash
-   sudo curl http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/amd64/chicha-http-proxy -o /usr/local/bin/chicha-http-proxy && sudo chmod +x /usr/local/bin/chicha-http-proxy
+   sudo curl https://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/amd64/chicha-http-proxy -o /usr/local/bin/chicha-http-proxy && sudo chmod +x /usr/local/bin/chicha-http-proxy
    ```
 
 2. **Windows**:
