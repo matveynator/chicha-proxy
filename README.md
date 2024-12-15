@@ -1,63 +1,105 @@
 <img src="https://github.com/matveynator/chicha-http-proxy/blob/main/chicha-http-proxy.png?raw=true" alt="chicha-http-proxy" width="50%" align="right" />
 
-## **chicha-http-proxy**
+# **сhicha-http-proxy: Fast and Simple L3 HTTP Proxy**
 
-**chicha-http-proxy** — прокси-сервер для пересылки запросов на Zendesk, созданный с целью помочь порядочным людям, столкнувшимся с ограничениями, продолжать использовать качественный сервис для работы и общения. Кроме того можно создавать зеркала любых других сайтов.
-
----
-
-### **Скачивание**
-
-Выберите нужную версию:
-
-- **Linux**: [AMD64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/amd64/chicha-http-proxy), [ARM64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/arm64/chicha-http-proxy)
-- **Windows**: [AMD64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/windows/amd64/chicha-http-proxy.exe), [ARM64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/windows/arm64/chicha-http-proxy.exe)
-- **MacOS**: [Intel](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/mac/amd64/chicha-http-proxy), [M1/M2](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/mac/arm64/chicha-http-proxy)
-
-Другие варианты доступны в [полном списке](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui).
+Chicha HTTP Proxy is a lightweight **Layer 3 (L3)** HTTP proxy. It forwards traffic to a target URL and supports both HTTP and HTTPS with automatic SSL certificates. Built with Go, it’s fast, easy to set up, and perfect for creating mirrors of websites or services.
 
 ---
 
-### **Установка**
+### **Why Chicha HTTP Proxy?**
+- **Simple**: Minimal setup—just specify the target URL.
+- **Fast**: Written in Go for high performance.
+- **Automatic SSL**: Get and renew HTTPS certificates with Let's Encrypt.
+- **Cross-Platform**: Available for multiple platforms, including Linux, Windows, macOS, and more.
+
+---
+
+### **Download**
+
+Choose the version for your platform:  
+- **Linux**: [AMD64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/amd64/chicha-http-proxy), [ARM64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/arm64/chicha-http-proxy)  
+- **Windows**: [AMD64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/windows/amd64/chicha-http-proxy.exe), [ARM64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/windows/arm64/chicha-http-proxy.exe)  
+- **macOS**: [Intel](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/mac/amd64/chicha-http-proxy), [M1/M2](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/mac/arm64/chicha-http-proxy)
+
+Other platforms (including FreeBSD, Solaris, and more) are available in the [full list here](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui).
+
+---
+
+### **Installation**
 
 1. **Linux/macOS**:
    ```bash
-   sudo curl http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/amd64/chicha-http-proxy > /usr/local/bin/chicha-http-proxy; 
-   sudo chmod +x /usr/local/bin/chicha-http-proxy; chicha-http-proxy --version;
+   sudo curl http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/amd64/chicha-http-proxy -o /usr/local/bin/chicha-http-proxy && sudo chmod +x /usr/local/bin/chicha-http-proxy
    ```
 
-2. **Windows**: 
-   Скачайте файл `.exe` и добавьте его в `PATH`.
+2. **Windows**:
+   Download the `.exe` file and add its directory to `PATH`.
 
 ---
 
-### **Использование**
+### **Usage Examples**
 
-#### Основные флаги
-
-- `--target-url` (обязательный): URL, на который будут пересылаться запросы. Например: `--target-url=https://testsupport.zendesk.com`.
-- `--http-port`: порт для запуска HTTP-сервера. По умолчанию `80`. Например: `--http-port=8080`.
-- `--https-port`: порт для запуска HTTPS-сервера. По умолчанию `443`. Например: `--https-port=8443`.
-- `--domain`: домен, на который будет выпущен автоматический сертификат Let's Encrypt. Например: `--domain=example.com`.
-- `--version`: вывод текущей версии программы.
-
-#### Примеры запуска
-
-1. **Для HTTP-прокси**:
+1. **Basic HTTP Proxy**:
+   Forward HTTP requests on port `8080` to a target URL:
    ```bash
    chicha-http-proxy --http-port=8080 --target-url=https://testsupport.zendesk.com
    ```
 
-2. **Для HTTPS-прокси с автоматическим сертификатом**:
+2. **HTTPS Proxy with Automatic SSL**:
+   Proxy HTTPS traffic for `example.com`:
    ```bash
    chicha-http-proxy --domain=example.com --target-url=https://testsupport.zendesk.com
    ```
 
+3. **HTTP and HTTPS Together**:
+   Handle HTTP on `8080` and HTTPS on `8443`:
+   ```bash
+   chicha-http-proxy --http-port=8080 --https-port=8443 --domain=example.com --target-url=https://testsupport.zendesk.com
+   ```
+
 ---
 
-### **Особенности**
+### **Systemd Autostart Setup**
 
-- **Сертификаты**: автоматически настраиваются и обновляются с помощью Let's Encrypt. Сертификаты выдаются на 90 дней и обновляются автоматически.
-- **Порты**: для работы через HTTPS должен быть открыт порт 443 (или другой, указанный в `--https-port`).
+1. **Create a Service File**:
+   ```bash
+   sudo mcedit /etc/systemd/system/chicha-http-proxy.service
+   ```
+
+2. **Add the Following Content**:
+   ```ini
+   [Unit]
+   Description=Chicha HTTP Proxy
+   After=network.target
+
+   [Service]
+   ExecStart=/usr/local/bin/chicha-http-proxy --http-port=8080 --domain=example.com --target-url=https://testsupport.zendesk.com
+   Restart=on-failure
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+3. Save the file and reload systemd:
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl enable chicha-http-proxy
+   sudo systemctl start chicha-http-proxy
+   ```
+
+4. **Check the Status**:
+   ```bash
+   sudo systemctl status chicha-http-proxy
+   ```
 
 ---
+
+### **Key Features**
+- **Automatic SSL/TLS**: Certificates issued and renewed by Let's Encrypt.
+- **Customizable Ports**: Easily set HTTP (`80`) and HTTPS (`443`) ports.
+- **Cross-Platform Support**: Available for a wide range of operating systems and architectures.
+- **Simple Configuration**: No complicated setup—just specify your target URL.
+
+---
+
+Chicha HTTP Proxy is a compact and beginner-friendly tool for creating mirrors of websites or services. Download it today and get started in minutes!
