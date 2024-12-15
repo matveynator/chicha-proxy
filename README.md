@@ -1,8 +1,8 @@
-<img src="https://github.com/matveynator/chicha-proxy/blob/main/chicha-proxy.png?raw=true" alt="chicha-proxy" width="50%" align="right" />
+<img src="https://github.com/matveynator/chicha-http-proxy/blob/main/chicha-proxy.png?raw=true" alt="chicha-proxy" width="50%" align="right" />
 
-## **chicha-proxy**
+## **chicha-http-proxy**
 
-**chicha-proxy** — прокси-сервер для пересылки запросов на Zendesk, созданный с целью помочь порядочным людям, столкнувшимся с ограничениями, продолжать использовать качественный сервис для работы и общения. Кроме того можно создавать зеркала любых других сайтов.
+**chicha-http-proxy** — прокси-сервер для пересылки запросов на Zendesk, созданный с целью помочь порядочным людям, столкнувшимся с ограничениями, продолжать использовать качественный сервис для работы и общения. Кроме того можно создавать зеркала любых других сайтов.
 
 ---
 
