@@ -1,4 +1,4 @@
-<img src="https://github.com/matveynator/chicha-http-proxy/blob/main/chicha-http-proxy.png?raw=true" alt="chicha-http-proxy" width="50%" align="right" />
+<img src="https://github.com/matveynator/chicha-http-proxy/blob/main/chicha-http-proxy.png?raw=true" alt="chicha-http-proxy" width="100%" align="right" />
 
 # **сhicha-http-proxy: Fast and Simple L3 HTTP MIRROR**
 
