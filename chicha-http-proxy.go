@@ -106,10 +106,10 @@ func proxyHandler(targetURL string) http.HandlerFunc {
 
 func main() {
 	// Define command-line flags
-	httpPort := flag.String("http-port", "80", "Port for the HTTP server (ignored if -domain is set)")
-	httpsPort := flag.String("https-port", "443", "Port for the HTTPS server (ignored if -domain is set)")
-	targetURL := flag.String("target-url", "https://twochicks.ru", "Target URL for forwarding requests")
-	domain := flag.String("domain", "", "Domain for automatic Let's Encrypt certificate (forces admin rights and ports 80/443)")
+	httpPort := flag.String("http-port", "80", "Port for the HTTP server. If -domain is set, this is forced to 80.")
+	httpsPort := flag.String("https-port", "443", "Port for the HTTPS server (only used if -domain is set).")
+	targetURL := flag.String("target-url", "https://twochicks.ru", "Target URL for forwarding requests.")
+	domain := flag.String("domain", "", "Domain for automatic Let's Encrypt certificate. Forces HTTP port to 80 and admin rights, HTTPS can be changed.")
 	showVersion := flag.Bool("version", false, "Show program version")
 
 	// Parse the flags
@@ -126,12 +126,17 @@ func main() {
 		log.Fatal("Target URL (--target-url) is not specified")
 	}
 
-	// If a domain is provided for certificate retrieval, enforce standard ports.
-	// Let's Encrypt expects port 80 for HTTP challenge and 443 for HTTPS.
+	// If a domain is provided for certificate retrieval:
+	// - Force HTTP port to 80 (required for Let's Encrypt HTTP challenge).
+	// - Allow user to specify HTTPS port (default 443), if desired.
 	if *domain != "" {
 		*httpPort = "80"
-		*httpsPort = "443"
-		log.Printf("Domain specified. Ignoring custom port flags and forcing HTTP (80) and HTTPS (443).")
+		log.Printf("Domain specified. HTTP port forced to 80. HTTPS port: %s", *httpsPort)
+	} else {
+		// If no domain is specified:
+		// - The user can use any HTTP port they like.
+		// - No HTTPS will be started as no certificate is requested.
+		fmt.Printf("No domain specified. Running HTTP on port %s only.\n", *httpPort)
 	}
 
 	// Create the proxy handler
@@ -140,7 +145,8 @@ func main() {
 	// 'done' channel is used to keep the main goroutine running.
 	done := make(chan bool)
 
-	// Start HTTP server if a port is specified or if domain enforces standard ports.
+	// Start HTTP server. If a domain is given, this will always be on port 80.
+	// If no domain is given, this uses the user-specified port.
 	if *httpPort != "" {
 		go func() {
 			httpServer := &http.Server{
@@ -154,8 +160,7 @@ func main() {
 		}()
 	}
 
-	// Start HTTPS server if a domain is specified
-	// This will automatically fetch a certificate from Let's Encrypt.
+	// If a domain is specified, set up HTTPS with Let's Encrypt on the specified port.
 	if *domain != "" {
 		// Obtain the user's home directory to store certificates.
 		homeDir, err := os.UserHomeDir()
@@ -187,10 +192,6 @@ func main() {
 				log.Fatalf("HTTPS server error: %v", err)
 			}
 		}()
-	} else {
-		// If no domain is specified, user is free to choose custom ports for HTTP only.
-		// The HTTPS server will not run since no certificate domain is given.
-		fmt.Println("No domain specified. Running HTTP server only (if enabled).")
 	}
 
 	// Block until something signals the 'done' channel.
