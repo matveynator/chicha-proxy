@@ -1,4 +1,4 @@
-<img src="https://github.com/matveynator/chicha-http-proxy/blob/main/chicha-proxy.png?raw=true" alt="chicha-proxy" width="50%" align="right" />
+<img src="https://github.com/matveynator/chicha-http-proxy/blob/main/chicha-http-proxy.png?raw=true" alt="chicha-http-proxy" width="50%" align="right" />
 
 ## **chicha-http-proxy**
 
@@ -10,11 +10,11 @@
 
 Выберите нужную версию:
 
-- **Linux**: [AMD64](http://files.zabiyaka.net/chicha-proxy/latest/no-gui/linux/amd64/chicha-proxy), [ARM64](http://files.zabiyaka.net/chicha-proxy/latest/no-gui/linux/arm64/chicha-proxy)
-- **Windows**: [AMD64](http://files.zabiyaka.net/chicha-proxy/latest/no-gui/windows/amd64/chicha-proxy.exe), [ARM64](http://files.zabiyaka.net/chicha-proxy/latest/no-gui/windows/arm64/chicha-proxy.exe)
-- **MacOS**: [Intel](http://files.zabiyaka.net/chicha-proxy/latest/no-gui/mac/amd64/chicha-proxy), [M1/M2](http://files.zabiyaka.net/chicha-proxy/latest/no-gui/mac/arm64/chicha-proxy)
+- **Linux**: [AMD64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/amd64/chicha-http-proxy), [ARM64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/arm64/chicha-http-proxy)
+- **Windows**: [AMD64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/windows/amd64/chicha-http-proxy.exe), [ARM64](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/windows/arm64/chicha-http-proxy.exe)
+- **MacOS**: [Intel](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/mac/amd64/chicha-http-proxy), [M1/M2](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/mac/arm64/chicha-http-proxy)
 
-Другие варианты доступны в [полном списке](http://files.zabiyaka.net/chicha-proxy/latest/no-gui).
+Другие варианты доступны в [полном списке](http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui).
 
 ---
 
@@ -22,8 +22,8 @@
 
 1. **Linux/macOS**:
    ```bash
-   sudo curl http://files.zabiyaka.net/chicha-proxy/latest/no-gui/linux/amd64/chicha-proxy > /usr/local/bin/chicha-proxy; 
-   sudo chmod +x /usr/local/bin/chicha-proxy; chicha-proxy --version;
+   sudo curl http://files.zabiyaka.net/chicha-http-proxy/latest/no-gui/linux/amd64/chicha-http-proxy > /usr/local/bin/chicha-http-proxy; 
+   sudo chmod +x /usr/local/bin/chicha-http-proxy; chicha-http-proxy --version;
    ```
 
 2. **Windows**: 
@@ -45,12 +45,12 @@
 
 1. **Для HTTP-прокси**:
    ```bash
-   chicha-proxy --http-port=8080 --target-url=https://testsupport.zendesk.com
+   chicha-http-proxy --http-port=8080 --target-url=https://testsupport.zendesk.com
    ```
 
 2. **Для HTTPS-прокси с автоматическим сертификатом**:
    ```bash
-   chicha-proxy --domain=example.com --target-url=https://testsupport.zendesk.com
+   chicha-http-proxy --domain=example.com --target-url=https://testsupport.zendesk.com
    ```
 
 ---
